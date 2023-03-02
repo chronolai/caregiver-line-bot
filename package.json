@@ -1,0 +1,23 @@
+{
+  "name": "caregiver-line-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./api/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chronolai/caregiver-line-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chronolai/caregiver-line-bot/issues"
+  },
+  "homepage": "https://github.com/chronolai/caregiver-line-bot#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "uuid": "^9.0.0"
+  }
+}
