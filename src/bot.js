@@ -41,16 +41,16 @@ function Robot(debug = false) {
     channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   });
   bot.on('message', async function (event) {
-    console.log(JSON.stringify(event, null, 2));
+    // console.log(JSON.stringify(event, null, 2));
     if (!(event.type === 'message' && event.message.type === 'text')) {
-      console.log('return');
+      // console.log('return');
       return;
     }
     const profile = await bot.getUserProfile(event.source.userId);
-    console.log(JSON.stringify(profile, null, 2));
+    // console.log(JSON.stringify(profile, null, 2));
     const text = event.message.text;
     const result = await ameia(text);
-    console.table(result);
+    // console.table(result);
     await event.reply([
       `${profile.displayName}:`,
       `[${result.source_locale.slice(0, 2)}] ${result.source_text}`,
