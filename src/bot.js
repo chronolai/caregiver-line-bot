@@ -45,7 +45,7 @@ function Robot(debug = false) {
       return;
     }
     const profile = await bot.getUserProfile(event.source.userId);
-    // console.error(JSON.stringify(event, null, 2));
+    console.error(JSON.stringify(event, null, 2));
     const text = event.message.text;
     const result = await ameia(text);
     console.table(result);
