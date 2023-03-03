@@ -43,6 +43,7 @@ function Robot(debug = false) {
   bot.on('message', async function (event) {
     console.error(JSON.stringify(event, null, 2));
     if (!(event.type === 'message' && event.message.type === 'text')) {
+      console.error('return');
       return;
     }
     const profile = await bot.getUserProfile(event.source.userId);
