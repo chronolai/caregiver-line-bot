@@ -11,6 +11,7 @@ async function detect(text) {
     projectId: process.env.PROJECT_ID,
     key: process.env.API_KEY,
   });
+  console.error('ll', JSON.stringify(process.env));
   let [ detections ] = await lib.detect(text);
   console.error('asd', detections);
   detections = Array.isArray(detections) ? detections : [detections];
