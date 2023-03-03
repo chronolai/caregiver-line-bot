@@ -12,6 +12,7 @@ async function detect(text) {
     key: process.env.API_KEY,
   });
   let [ detections ] = await lib.detect(text);
+  console.error('asd', detections);
   detections = Array.isArray(detections) ? detections : [detections];
   return detections[0].language;
 }
