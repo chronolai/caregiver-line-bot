@@ -10,10 +10,14 @@ const lib = new Translate({
 
 
 async function detect(text) {
-  console.error('detect', text);
-  let [ detections ] = await lib.detect(text);
-  detections = Array.isArray(detections) ? detections : [detections];
-  return detections[0].language;
+  try {
+    console.error('detect', text);
+    let [ detections ] = await lib.detect(text);
+    detections = Array.isArray(detections) ? detections : [detections];
+    return detections[0].language;
+  } catch(e) {
+    console.error(JSON.stringify(e));
+  }
 }
 
 async function translate(text, target = 'zh-TW') {
