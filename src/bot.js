@@ -3,7 +3,6 @@ const linebot = require('linebot');
 const { Translate } = require('@google-cloud/translate').v2;
 
 
-
 const lib = new Translate({
   projectId: process.env.PROJECT_ID,
   key: process.env.API_KEY,
@@ -11,6 +10,7 @@ const lib = new Translate({
 
 async function detect(text) {
   console.error('detect', text);
+  return 'zh-TW';
   console.error(lib);
   let [ detections ] = await lib.detect(text);
   console.error('asd', detections);
