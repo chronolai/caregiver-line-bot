@@ -2,6 +2,8 @@ const app = require('express')();
 const { v4 } = require('uuid');
 const linebot = require('linebot');
 
+const ameia = require('./ameia');
+
 const bot = linebot({
   channelId: process.env.LINE_CHANNEL_ID,
   channelSecret: process.env.LINE_CHANNEL_SECRET,
@@ -9,7 +11,9 @@ const bot = linebot({
 });
 
 bot.on('message', function (event) {
-  event.reply('TEST').then(function (data) {
+  const text = event.message.text;
+  const result = await ameia(text);
+  event.reply(result.target_text).then(function (data) {
     // success
   }).catch(function (error) {
     // error
