@@ -41,11 +41,12 @@ function Robot(debug = false) {
     channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   });
   bot.on('message', async function (event) {
-    // console.log(JSON.stringify(event, null, 2));
+    console.log(JSON.stringify(event, null, 2));
     if (!(event.type === 'message' && event.message.type === 'text')) {
       // console.log('return');
       return;
     }
+    console.log('WTF');
     const profile = await bot.getUserProfile(event.source.userId);
     console.log(JSON.stringify(profile, null, 2));
     const text = event.message.text;
