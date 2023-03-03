@@ -48,18 +48,18 @@ function Robot(debug = false) {
         return;
       }
       console.log('WTF');
-      const profile = await bot.getUserProfile(event.source.userId);
-      console.log(JSON.stringify(profile, null, 2));
+      // const profile = await bot.getUserProfile(event.source.userId);
+      // console.log(JSON.stringify(profile, null, 2));
       const text = event.message.text;
       const result = await ameia(text);
       // console.table(result);
       await event.reply([
-        `${profile.displayName}:`,
+        // `${profile.displayName}:`,
         `[${result.source_locale.slice(0, 2)}] ${result.source_text}`,
         `[${result.target_locale.slice(0, 2)}] ${result.target_text}`,
       ].join('\n'));
     } catch (e) {
-      console.error(JSON.stringify(e));
+      await event.reply(JSON.stringify(e));
     }
   });
   return bot;
