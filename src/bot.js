@@ -52,6 +52,7 @@ function Robot(debug = false) {
       // console.log(JSON.stringify(profile, null, 2));
       const text = event.message.text;
       const result = await ameia(text);
+      console.log('WTF2');
       // console.table(result);
       await event.reply([
         // `${profile.displayName}:`,
