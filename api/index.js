@@ -10,16 +10,19 @@ const bot = linebot({
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
 });
 
-bot.on('message', function (event) {
+bot.on('message', async function (event) {
+  if (!(event.type === 'message' && event.message.type === 'text')) {
+    return;
+  }
+  const profile = await bot.getUserProfile(event.source.userId);
+  // console.error(JSON.stringify(event, null, 2));
   const text = event.message.text;
   const result = await ameia(text);
-  event.reply(result.target_text).then(function (data) {
-    // success
-  }).catch(function (error) {
-    // error
-  });
+  console.table(result);
+  await event.reply(`${profile.displayName}: ${result.target_text}`);
 });
 const linebotParser = bot.parser();
+bot.listen('/linewebhook', 3000);
 
 app.get('/api', (req, res) => {
   const path = `/api/item/${v4()}`;

@@ -19,7 +19,7 @@ async function translate(text, target = 'zh-TW') {
 }
 
 async function ameia(text) {
-  const mapping = { 'id': 'zh-TW', 'zh-TW': 'id' };
+  const mapping = { 'id': 'zh-TW', 'zh-TW': 'id', 'zh-CN': 'id', 'en': 'id' };
   const source = await detect(text);
   const target = mapping[source] || 'en';
   const result = await translate(text, target);
@@ -41,6 +41,6 @@ async function main() {
     await ameia('if 中英夾雜呢？'),
   ]);
 }
-main();
+// main();
 
 module.exports = ameia;
