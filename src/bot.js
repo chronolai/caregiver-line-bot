@@ -3,32 +3,32 @@ const linebot = require('linebot');
 const { Translate } = require('@google-cloud/translate').v2;
 
 
-const lib = new Translate({
-  projectId: process.env.PROJECT_ID,
-  key: process.env.API_KEY,
-});
 
 
 async function detect(text) {
-  try {
-    console.error('detect', text);
-    let [ detections ] = await lib.detect(text);
-    detections = Array.isArray(detections) ? detections : [detections];
-    return detections[0].language;
-  } catch(e) {
-    console.error(JSON.stringify(e));
-  }
+  console.error('detect', text);
+  const lib = new Translate({
+    projectId: process.env.PROJECT_ID,
+    key: process.env.API_KEY,
+  });
+  let [ detections ] = await lib.detect(text);
+  detections = Array.isArray(detections) ? detections : [detections];
+  return detections[0].language;
 }
 
 async function translate(text, target = 'zh-TW') {
   console.error('translate', text);
+  const lib = new Translate({
+    projectId: process.env.PROJECT_ID,
+    key: process.env.API_KEY,
+  });
   const [ translation ] = await lib.translate(text, target);
   return translation;
 }
 
 async function ameia(text) {
   console.error('ameia', text);
-  const mapping = { 'id': 'zh-TW', 'zh-TW': 'id', 'zh-CN': 'id', 'en': 'id' };
+  const mapping = { 'id': 'zh-TW', 'zh-TW': 'id', 'zh-CN': 'id', 'en': 'id' };AAAAAAAAAAAAAAAAA
   const source = await detect(text);
   const target = mapping[source] || 'en';
   const result = await translate(text, target);
