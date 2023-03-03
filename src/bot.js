@@ -28,7 +28,7 @@ async function translate(text, target = 'zh-TW') {
 
 async function ameia(text) {
   console.error('ameia', text);
-  const mapping = { 'id': 'zh-TW', 'zh-TW': 'id', 'zh-CN': 'id', 'en': 'id' };AAAAAAAAAAAAAAAAA
+  const mapping = { 'id': 'zh-TW', 'zh-TW': 'id', 'zh-CN': 'id', 'en': 'id' };
   const source = await detect(text);
   const target = mapping[source] || 'en';
   const result = await translate(text, target);
