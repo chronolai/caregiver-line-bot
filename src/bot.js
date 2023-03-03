@@ -10,17 +10,20 @@ const lib = new Translate({
 
 
 async function detect(text) {
+  console.error('detect', text);
   let [ detections ] = await lib.detect(text);
   detections = Array.isArray(detections) ? detections : [detections];
   return detections[0].language;
 }
 
 async function translate(text, target = 'zh-TW') {
+  console.error('translate', text);
   const [ translation ] = await lib.translate(text, target);
   return translation;
 }
 
 async function ameia(text) {
+  console.error('ameia', text);
   const mapping = { 'id': 'zh-TW', 'zh-TW': 'id', 'zh-CN': 'id', 'en': 'id' };
   const source = await detect(text);
   const target = mapping[source] || 'en';
