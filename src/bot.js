@@ -4,15 +4,14 @@ const { Translate } = require('@google-cloud/translate').v2;
 
 
 
+const lib = new Translate({
+  projectId: process.env.PROJECT_ID,
+  key: process.env.API_KEY,
+});
 
 async function detect(text) {
   console.error('detect', text);
-  const lib = new Translate({
-    projectId: process.env.PROJECT_ID,
-    key: process.env.API_KEY,
-  });
-  let r = await lib.detect(text);
-  console.error(r);
+  console.error(lib);
   let [ detections ] = await lib.detect(text);
   console.error('asd', detections);
   detections = Array.isArray(detections) ? detections : [detections];
@@ -21,10 +20,6 @@ async function detect(text) {
 
 async function translate(text, target = 'zh-TW') {
   console.error('translate', text);
-  const lib = new Translate({
-    projectId: process.env.PROJECT_ID,
-    key: process.env.API_KEY,
-  });
   const [ translation ] = await lib.translate(text, target);
   return translation;
 }
