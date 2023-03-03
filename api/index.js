@@ -1,5 +1,21 @@
 const app = require('express')();
 const { v4 } = require('uuid');
+const linebot = require('linebot');
+
+const bot = linebot({
+  channelId: process.env.LINE_CHANNEL_ID,
+  channelSecret: process.env.LINE_CHANNEL_SECRET,
+  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
+});
+
+bot.on('message', function (event) {
+  event.reply('TEST').then(function (data) {
+    // success
+  }).catch(function (error) {
+    // error
+  });
+});
+const linebotParser = bot.parser();
 
 app.get('/api', (req, res) => {
   const path = `/api/item/${v4()}`;
@@ -16,6 +32,8 @@ app.get('/api/item/:slug', (req, res) => {
 app.get('/webhook', (req, res) => {
   res.end(`Hello webhook`);
 });
+
+app.post('/webhook', linebotParser);
 
 app.get('/', (req, res) => {
   res.end(`OK`);

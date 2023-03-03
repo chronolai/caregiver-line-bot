@@ -16,6 +16,9 @@
   },
   "homepage": "https://github.com/chronolai/caregiver-line-bot#readme",
   "dependencies": {
+    "@google-cloud/translate": "^7.2.0",
+    "@line/bot-sdk": "^7.5.2",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "uuid": "^9.0.0"
   }
