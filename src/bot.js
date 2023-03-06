@@ -38,7 +38,7 @@ async function ameia(text) {
   };
 }
 
-async function test() {
+function test() {
   console.error('test');
   const text = "我吃飽了";
   const key = process.env.API_KEY;
