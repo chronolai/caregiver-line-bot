@@ -62,9 +62,11 @@ function Robot(debug = false) {
     channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   });
   bot.on('message', function (event) {
-    // event.reply('hi');
+    event.reply('hi');
     test().then((t) => {
       event.reply(t);
+    }).catch((e) => {
+      console.error(JSON.stringify(e));
     });
 
     // try {
