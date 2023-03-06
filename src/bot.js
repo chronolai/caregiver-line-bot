@@ -61,31 +61,33 @@ function Robot(debug = false) {
     channelSecret: process.env.LINE_CHANNEL_SECRET,
     channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   });
-  bot.on('message', async function (event) {
+  bot.on('message', function (event) {
     event.reply('hi');
-    const t = await test();
-    event.reply(t);
-    try {
-      console.log(JSON.stringify(event, null, 2));
-      if (!(event.type === 'message' && event.message.type === 'text')) {
-        // console.log('return');
-        return;
-      }
-      console.log('WTF');
-      // const profile = await bot.getUserProfile(event.source.userId);
-      // console.log(JSON.stringify(profile, null, 2));
-      const text = event.message.text;
-      const result = await ameia(text);
-      console.log('WTF2');
-      // console.table(result);
-      await event.reply([
-        // `${profile.displayName}:`,
-        `[${result.source_locale.slice(0, 2)}] ${result.source_text}`,
-        `[${result.target_locale.slice(0, 2)}] ${result.target_text}`,
-      ].join('\n'));
-    } catch (e) {
-      await event.reply(JSON.stringify(e));
-    }
+    test().then((t) => {
+      event.reply(t);
+    });
+
+    // try {
+    //   console.log(JSON.stringify(event, null, 2));
+    //   if (!(event.type === 'message' && event.message.type === 'text')) {
+    //     // console.log('return');
+    //     return;
+    //   }
+    //   console.log('WTF');
+    //   // const profile = await bot.getUserProfile(event.source.userId);
+    //   // console.log(JSON.stringify(profile, null, 2));
+    //   const text = event.message.text;
+    //   const result = await ameia(text);
+    //   console.log('WTF2');
+    //   // console.table(result);
+    //   await event.reply([
+    //     // `${profile.displayName}:`,
+    //     `[${result.source_locale.slice(0, 2)}] ${result.source_text}`,
+    //     `[${result.target_locale.slice(0, 2)}] ${result.target_text}`,
+    //   ].join('\n'));
+    // } catch (e) {
+    //   await event.reply(JSON.stringify(e));
+    // }
   });
   return bot;
 }
