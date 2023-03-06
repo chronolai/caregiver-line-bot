@@ -37,6 +37,19 @@ async function ameia(text) {
   };
 }
 
+async function test() {
+  const text = "我吃飽了";
+  const key = process.env.API_KEY;
+  const from = 'zh-TW';
+  const to = 'en';
+  const response = axios.post(`https://www.googleapis.com/language/translate/v2?key=${key}&source=${from}&target=${to}&q=${text}`);
+  return response.then((result) => {
+    console.log(result.data.data.translations[0].translatedText);
+    output = result.data.data.translations[0].translatedText;
+    return output;
+  });
+}
+
 function Robot(debug = false) {
   console.log(`Initial line bot (debug: ${debug? 'true' : 'false'})`);
   const bot = linebot({
@@ -45,6 +58,8 @@ function Robot(debug = false) {
     channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   });
   bot.on('message', async function (event) {
+    const t = await test();
+    event.reply(t);
     try {
       console.log(JSON.stringify(event, null, 2));
       if (!(event.type === 'message' && event.message.type === 'text')) {
