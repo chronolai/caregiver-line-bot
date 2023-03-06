@@ -39,6 +39,7 @@ async function ameia(text) {
 }
 
 async function test() {
+  console.error('test');
   const text = "我吃飽了";
   const key = process.env.API_KEY;
   const from = 'zh-TW';
@@ -48,6 +49,8 @@ async function test() {
     console.log(result.data.data.translations[0].translatedText);
     output = result.data.data.translations[0].translatedText;
     return output;
+  }).catch(e => {
+    console.error(JSON>stringify(e));
   });
 }
 
