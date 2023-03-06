@@ -1,4 +1,5 @@
 require('dotenv').config()
+const axios = require('axios');
 const linebot = require('linebot');
 const { Translate } = require('@google-cloud/translate').v2;
 
