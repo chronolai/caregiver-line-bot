@@ -38,20 +38,13 @@ async function ameia(text) {
   };
 }
 
-function test() {
-  console.error('test');
-  const text = "我吃飽了";
+async function test(text) {
+  console.error('test:', text);
   const key = process.env.API_KEY;
   const from = 'zh-TW';
   const to = 'en';
-  const response = axios.post(`https://www.googleapis.com/language/translate/v2?key=${key}&source=${from}&target=${to}&q=${text}`);
-  return response.then((result) => {
-    console.log(result.data.data.translations[0].translatedText);
-    output = result.data.data.translations[0].translatedText;
-    return output;
-  }).catch(e => {
-    console.error(JSON.stringify(e));
-  });
+  const response = await axios.post(`https://www.googleapis.com/language/translate/v2?key=${key}&source=${from}&target=${to}&q=${text}`);
+  return response.data.data.translations[0].translatedText;
 }
 
 function Robot(debug = false) {
@@ -61,13 +54,16 @@ function Robot(debug = false) {
     channelSecret: process.env.LINE_CHANNEL_SECRET,
     channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   });
-  bot.on('message', function (event) {
-    event.reply('hi');
-    test().then((t) => {
-      event.reply(t);
-    }).catch((e) => {
-      console.error(JSON.stringify(e));
-    });
+  bot.on('message', async function (event) {
+    // event.reply('hi');
+    const t = await test(event.message.text);
+    console.error(t);
+    event.reply(`hi, ${t}`);
+    // test().then((t) => {
+      // event.reply(t);
+    // }).catch((e) => {
+      // console.error(JSON.stringify(e));
+    // });
 
     // try {
     //   console.log(JSON.stringify(event, null, 2));
