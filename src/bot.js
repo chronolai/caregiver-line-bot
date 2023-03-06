@@ -50,7 +50,7 @@ async function test() {
     output = result.data.data.translations[0].translatedText;
     return output;
   }).catch(e => {
-    console.error(JSON>stringify(e));
+    console.error(JSON.stringify(e));
   });
 }
 
@@ -62,6 +62,7 @@ function Robot(debug = false) {
     channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   });
   bot.on('message', async function (event) {
+    event.reply('hi');
     const t = await test();
     event.reply(t);
     try {
