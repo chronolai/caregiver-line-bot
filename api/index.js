@@ -1,15 +1,26 @@
-const app = require('express')();
+import express from 'express';
+import { reply } from '../services/line.js';
 
-const bot = require('../src/bot');
+const app = express();
 
-const ameia = bot();
-// app.get('/webhook', (req, res) => res.end(`OK`));
-app.post('/webhook', ameia.parser());
+app.use(express.json());
 
-app.get('/', (req, res) => res.end(`OK`));
+app.get('/', (req, res) => {
+  res.sendStatus(200);
+});
 
-// app.listen(3000, () => {
-    // console.log(`Example app listening on port ${3000}`)
-// })
+app.post('/webhook', async (req, res) => {
+  const events = req.body.events || [];
+  const replies = events
+    .filter(({ type }) => type === 'message')
+    .map(({ replyToken, message }) => reply({
+      replyToken,
+      messages: [{ type: 'text', text: message.text }],
+    }));
+  await Promise.all(replies);
+  res.sendStatus(200);
+});
 
-module.exports = app;
+app.listen(3000);
+
+export default app;
